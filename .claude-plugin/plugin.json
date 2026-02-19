@@ -1,0 +1,8 @@
+{
+  "name": "scala-lsp",
+  "description": "Scala LSP integration for Claude",
+  "version": "1.0.0",
+  "author": {
+    "name": "Daniel Slapman"
+  }
+}

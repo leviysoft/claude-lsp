@@ -1,0 +1,17 @@
+{
+  "name": "leviysoft",
+  "owner": {
+    "name": "LeviySoft",
+    "email": "leviysoft@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "claude-scala-lsp",
+      "source": {
+        "source": "github",
+        "repo": "leviysoft/claude-scala-lsp"
+      },
+      "description": "No-bullshit Scala LSP pluginf for Claude"
+    }
+  ]
+}
