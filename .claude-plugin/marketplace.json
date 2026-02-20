@@ -19,6 +19,11 @@
       "name": "idris2-lsp",
       "source": "./idris2-lsp",
       "description": "No-bullshit Idris2 LSP plugin for Claude"
+    },
+    {
+      "name": "fsharp-lsp",
+      "source": "./fsharp-lsp",
+      "description": "No-bullshit F# LSP plugin for Claude"
     }
   ]
 }

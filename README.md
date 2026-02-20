@@ -38,3 +38,14 @@ Don't forget to add `export ENABLE_LSP_TOOL=1`
 
     /plugin marketplace add leviysoft/claude-lsp
     /plugin install idris2-lsp@leviysoft
+
+## HOW TO F#
+
+Install [FsAutoComplete](https://github.com/ionide/FsAutoComplete):
+
+    dotnet tool install --global fsautocomplete
+
+Don't forget to add `export ENABLE_LSP_TOOL=1`
+
+    /plugin marketplace add leviysoft/claude-lsp
+    /plugin install fsharp-lsp@leviysoft
