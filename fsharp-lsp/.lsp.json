@@ -8,7 +8,9 @@
       ".fsx": "fsharp"
     },
     "transport": "stdio",
-    "initializationOptions": {},
+    "initializationOptions": {
+      "AutomaticWorkspaceInit": true
+    },
     "settings": {},
     "maxRestarts": 3
   }
