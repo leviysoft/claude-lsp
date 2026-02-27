@@ -8,7 +8,11 @@
     },
     "transport": "stdio",
     "initializationOptions": {},
-    "settings": {},
+    "settings": {
+      "metals": {
+        "autoImportBuilds": "all"
+      }
+    },
     "maxRestarts": 3
   }
 }
