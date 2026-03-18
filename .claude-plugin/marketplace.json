@@ -29,6 +29,11 @@
       "name": "prefer-jq",
       "source": "./prefer-jq",
       "description": "Blocks use of Python for JSON processing in Bash commands, enforcing jq instead"
+    },
+    {
+      "name": "prefer-ast-grep",
+      "source": "./prefer-ast-grep",
+      "description": "Redirects structural code searches from Grep to ast-grep. Requires ast-grep@ast-grep-marketplace."
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "name": "prefer-ast-grep",
+  "description": "Redirects structural code searches from Grep to ast-grep. Requires ast-grep@ast-grep-marketplace and the ast-grep skill.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Daniel Slapman"
+  }
+}

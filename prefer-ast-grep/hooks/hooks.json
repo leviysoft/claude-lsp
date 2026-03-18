@@ -1,0 +1,17 @@
+{
+  "description": "Redirects structural code searches from Grep to ast-grep",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Grep",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "If the Grep pattern targets code structure (function/class/method/import/type definitions, declarations, or calls), block in favor of ast-grep. If it targets plain text (strings, comments, TODOs, URLs, error messages) or is ambiguous, approve.\n\nRespond ONLY with JSON: {\"decision\":\"block\",\"reason\":\"...\"} or {\"decision\":\"approve\"}",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}
