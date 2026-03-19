@@ -1,5 +1,9 @@
 # CLAUDE Plugins
 
+## Adding this marketplace
+
+    /plugin marketplace add leviysoft/claude-plugins
+
 ## Utility Plugins
 
 ### prefer-ast-grep
@@ -23,8 +27,6 @@ Blocks use of Python for JSON processing in Bash commands, enforcing `jq` instea
 Requires `jq` to be installed.
 
 ## LSP Plugins
-
-    /plugin marketplace add leviysoft/claude-plugins
 
 ### HOW TO SCALA
 
