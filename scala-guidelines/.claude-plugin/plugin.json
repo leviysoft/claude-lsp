@@ -1,0 +1,8 @@
+{
+  "name": "scala-guidelines",
+  "description": "Scala coding guidelines skill for Claude",
+  "version": "0.1.0",
+  "author": {
+    "name": "Daniel Slapman"
+  }
+}

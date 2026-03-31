@@ -44,6 +44,11 @@
       "name": "scala-wartremover",
       "source": "./scala-wartremover",
       "description": "WartRemover skill for Scala projects"
+    },
+    {
+      "name": "scala-guidelines",
+      "source": "./scala-guidelines",
+      "description": "Scala coding guidelines skill for Claude"
     }
   ]
 }
