@@ -1,6 +1,6 @@
 ---
 name: scala-wartremover
-description: This skill should be used when working on a Scala project and there is a demand — explicit or implicit — to enforce code quality, eliminate antipatterns, apply static analysis, or set up linting. Typical triggers: "enforce best practices in this Scala project", "add static analysis", "set up linting", "improve code quality", "clean up antipatterns", "new Scala project setup".
+description: 'This skill should be used when working on a Scala project and there is a demand — explicit or implicit — to enforce code quality, eliminate antipatterns, apply static analysis, or set up linting. Typical triggers: "enforce best practices in this Scala project", "add static analysis", "set up linting", "improve code quality", "clean up antipatterns", "new Scala project setup".'
 ---
 
 ## Wartremover usage
