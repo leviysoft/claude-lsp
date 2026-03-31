@@ -39,6 +39,11 @@
       "name": "enforce-native-search",
       "source": "./enforce-native-search",
       "description": "Blocks grep/rg and find in Bash commands, enforcing ast-grep and the Glob tool instead"
+    },
+    {
+      "name": "scala-wartremover",
+      "source": "./scala-wartremover",
+      "description": "WartRemover skill for Scala projects"
     }
   ]
 }
