@@ -1,4 +1,4 @@
-# type-stringly-typed-ids
+# type-strongly-typed-ids-scala-2
 
 > All entity identifiers should be strongly typed.
 

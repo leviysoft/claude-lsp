@@ -1,34 +1,71 @@
 # type-strongly-typed-ids-scala-3
 
-> All entity identifiers should be strongly typed (Scala 3, `neotype`).
+> All entity identifiers should be strongly typed (Scala 3).
 
 ## Why It Matters
 
-Using plain primitive types (e.g., `String`) for identifiers allows accidentally passing a `UserId` where a `RoleId` is expected — a bug the compiler cannot catch. Strongly typed IDs make such mixups a compile-time error, eliminating an entire class of subtle runtime defects. They also serve as documentation, making it immediately clear from the type what entity an ID refers to.
+Using plain primitive types (e.g., `String`) for identifiers allows accidentally passing a `SID[User]` where a `SID[Role]` is expected — a bug the compiler cannot catch. Strongly typed IDs make such mixups a compile-time error, eliminating an entire class of subtle runtime defects. They also serve as documentation, making it immediately clear from the type what entity an ID refers to.
 
-## Setup
+## Generic typed ID implementation
+
+No library is required — Scala 3's `opaque type` provides zero-cost generic IDs natively.
+
+Put the following in a utility package (or subproject):
 
 ```scala
-libraryDependencies += "io.github.kitlangton" %% "neotype" % "0.4.10"
+import java.util.UUID
+
+object ids:
+
+  opaque type SID[T] = String
+  object SID:
+    def apply[T](value: String): SID[T]         = value
+    def random[T]: SID[T]                        = apply(UUID.randomUUID().toString)
+    def unapply[T](id: SID[T]): Some[String]     = Some(id)
+    extension [T](id: SID[T]) def unwrap: String = id
+
+  opaque type LID[T] = Long
+  object LID:
+    def apply[T](value: Long): LID[T]          = value
+    def unapply[T](id: LID[T]): Some[Long]     = Some(id)
+    extension [T](id: LID[T]) def unwrap: Long = id
 ```
+
+## Using typed IDs
+
+Import the `ids` object to bring `SID`, `LID`, and their extensions into scope:
 
 ```scala
-import neotype.*
+import myapp.ids.*
+
+type SID[T] = ids.SID[T]  // optional re-export alias for convenience
 ```
 
-## Examples
+Add utility methods and typeclass instances directly inside the companion. For example:
+
+```scala
+// inside object SID
+given [T]: Encoder[SID[T]] = Encoder[String].contramap(_.unwrap)
+given [T]: Decoder[SID[T]] = Decoder[String].map(SID(_))
+```
+
+Now `SID` and `LID` are ready to be used in domain entities:
+
+```scala
+case class User(id: SID[User], name: String, active: Boolean)
+case class Role(id: SID[Role], userId: SID[User], name: String)
+case class Order(id: LID[Order], userId: SID[User])
+```
 
 ### Bad
 
 ```scala
-// Primitives — compiler cannot distinguish a user ID from a role ID
+// Plain primitives — compiler cannot distinguish user IDs from role IDs
 case class User(id: String, name: String, active: Boolean)
 case class Role(id: String, userId: String, name: String)
 
 def findUser(id: String): User = ???
-def findRole(id: String): Role = ???
 
-val userId = "u-123"
 val roleId = "r-456"
 findUser(roleId)  // compiles — silent bug
 ```
@@ -36,85 +73,30 @@ findUser(roleId)  // compiles — silent bug
 ### Good
 
 ```scala
-import java.util.UUID
+import myapp.ids.*
 
-type UserId = UserId.Type
-object UserId extends Newtype[String]:
-  def random: UserId = UserId.unsafeMake(UUID.randomUUID().toString)
+case class User(id: SID[User], name: String, active: Boolean)
+case class Role(id: SID[Role], userId: SID[User], name: String)
 
-type RoleId = RoleId.Type
-object RoleId extends Newtype[String]
+def findUser(id: SID[User]): User = ???
 
-case class User(id: UserId, name: String, active: Boolean)
-case class Role(id: RoleId, userId: UserId, name: String)
+val uid = SID[User]("u-123")
+val rid = SID[Role]("r-456")
 
-def findUser(id: UserId): User = ???
-def findRole(id: RoleId): Role = ???
-
-val userId = UserId("u-123")
-val roleId = RoleId("r-456")
-findUser(roleId)  // compile error — type mismatch
-findUser(userId)  // OK
+findUser(rid)  // compile error — type mismatch: SID[Role] vs SID[User]
+findUser(uid)  // OK
 ```
 
-### Using Long or UUID as the underlying type
+## Accessing the underlying value
+
+Use `.unwrap` defined as an extension in the companion:
 
 ```scala
-type OrderId = OrderId.Type
-object OrderId extends Newtype[Long]
-
-type TraceId = TraceId.Type
-object TraceId extends Newtype[java.util.UUID]
-
-val oid  = OrderId(42L)
-val tid  = TraceId(java.util.UUID.randomUUID())
+val raw: String = uid.unwrap
 ```
 
-### Construction and access
-
-neotype's `apply` is a macro — it validates literals **at compile time**. For runtime values, use `unsafeMake` (assume valid) or `make` (returns `Either`):
+## Pattern matching
 
 ```scala
-// Compile-time literal — validated at compile time
-val id1: UserId = UserId("literal-id")
-
-// Runtime value known to be valid (e.g. from a trusted source)
-val id2: UserId = UserId.unsafeMake(someRuntimeString)
-
-// Runtime value from untrusted source — validate explicitly
-val result: Either[String, UserId] = UserId.make(someRuntimeString)
-```
-
-Unwrap the underlying value explicitly with `.unwrap`:
-
-```scala
-val raw: String = id1.unwrap
-```
-
-### Optional validation constraints
-
-Add an `inline def validate` to enforce invariants at compile time (for literals) and at runtime via `make`:
-
-```scala
-type CustomerId = CustomerId.Type
-object CustomerId extends Newtype[String]:
-  override inline def validate(value: String) =
-    if value.nonEmpty then true
-    else "CustomerId must not be empty"
-
-val c = CustomerId("")    // compile error for literals
-CustomerId.make("")       // Left("CustomerId must not be empty")
-```
-
-### Typeclass instances
-
-Add codecs and other instances directly inside the companion object:
-
-```scala
-import io.circe.{Encoder, Decoder}
-
-object UserId extends Newtype[String]:
-  def random: UserId = UserId.unsafeMake(UUID.randomUUID().toString)
-  given Encoder[UserId] = Encoder[String].contramap(_.unwrap)
-  given Decoder[UserId] = Decoder[String].map(UserId.unsafeMake)
+val SID(raw) = uid   // raw: String
 ```
