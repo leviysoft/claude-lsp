@@ -1,0 +1,8 @@
+{
+  "name": "scala-sanitar",
+  "description": "Guidance for resolving common Scala compilation errors — non-exhaustive matches, discarded values (including Futures), and references to uninitialized values",
+  "version": "0.1.0",
+  "author": {
+    "name": "Daniel Slapman"
+  }
+}
