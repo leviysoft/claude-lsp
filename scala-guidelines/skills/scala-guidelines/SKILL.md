@@ -23,6 +23,7 @@ Reference these guidelines when:
 
 ### Type Safety (HIGH)
 - [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
+- [`type-literally`](rules/type-literally.md) - compile-time validated string literals for constrained types
 
 ## How to Use
 
