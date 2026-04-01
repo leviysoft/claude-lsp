@@ -29,6 +29,9 @@ Reference these guidelines when:
 - [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
 - [`type-literally`](rules/type-literally.md) - compile-time validated string literals for constrained types
 
+### Domain Modeling (MEDIUM)
+- [`dom-prove-properties`](rules/dom-prove-properties.md) - prove domain properties (e.g. structural projection) at compile time via typeclasses
+
 ### Patterns (MEDIUM)
 - [`patterns-chimney`](rules/patterns-chimney.md) - layer separation and chimney-based conversions
 - [`patterns-cats`](rules/patterns-cats.md) - Cats type class methods over hand-rolled equivalents
@@ -46,8 +49,7 @@ This skill provides rule identifiers for quick reference. When generating or rev
 
 | Task | Primary Categories |
 |------|-------------------|
-| New function | `type-`, `err-` |
-| New struct/API | `api-`, `type-`, `doc-` |
-| Async code | `async-`, `own-` |
+| New function | `api-`, `type-`, `err-` |
+| New class/case class/trait/sealed trait/API | `api-`, `type-`, `dom-` |
 | Error handling | `err-`, `api-` |
-| Code review | `anti-`, `type-`, `lint-` |
+| Code review | `anti-`, `api-`, `type-`, `lint-` |
