@@ -32,7 +32,8 @@ Reference these guidelines when:
 - [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
 - [`type-literally`](rules/type-literally.md) - compile-time validated string literals for constrained types
 - [`type-nameof`](rules/type-nameof.md) - use `scala-nameof` whenever a type or property name is needed as a string constant
-- [`type-strongly-typed-ids`](rules/type-strongly-typed-ids.md) - all entity identifiers must be strongly typed
+- [`type-strongly-typed-ids-scala-2`](rules/type-strongly-typed-ids-scala-2.md) - all entity identifiers must be strongly typed (Scala 2, `tagging`)
+- [`type-strongly-typed-ids-scala-3`](rules/type-strongly-typed-ids-scala-3.md) - all entity identifiers must be strongly typed (Scala 3, `neotype`)
 
 ### Domain Modeling (MEDIUM)
 - [`dom-prove-properties`](rules/dom-prove-properties.md) - prove domain properties (e.g. structural projection) at compile time via typeclasses
