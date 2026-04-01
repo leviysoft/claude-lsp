@@ -24,23 +24,23 @@ Reference these guidelines when:
 ## Quick Reference
 
 ### API Design (HIGH)
-- [`api-refinement-scala-2`](rules/api-refinement-scala-2.md) - refinement types for constrained values (Scala 2, `refined`)
-- [`api-refinement-scala-3`](rules/api-refinement-scala-3.md) - refinement types for constrained values (Scala 3, `iron`)
+- [`api-refinement-scala-2`](rules/api-refinement-scala-2.md) - when a field has known value constraints, encode them in the type with `refined` (Scala 2)
+- [`api-refinement-scala-3`](rules/api-refinement-scala-3.md) - when a field has known value constraints, encode them in the type with `iron` (Scala 3)
 - [`api-enumerations`](rules/api-enumerations.md) - avoid `scala.Enumeration`; use `enumeratum` (Scala 2) or native `enum` (Scala 3)
 
 ### Type Safety (HIGH)
-- [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
-- [`type-literally`](rules/type-literally.md) - compile-time validated string literals for constrained types
+- [`type-option-semantics`](rules/type-option-semantics.md) - use `Option[T]` only for genuinely optional fields without defaults; prefer default parameter values or sealed traits otherwise
+- [`type-literally`](rules/type-literally.md) - use the `literally` library to turn hardcoded string values (date patterns, regexes, URIs, etc.) into compile-time validated literals
 - [`type-nameof`](rules/type-nameof.md) - use `scala-nameof` whenever a type or property name is needed as a string constant
 - [`type-strongly-typed-ids-scala-2`](rules/type-strongly-typed-ids-scala-2.md) - all entity identifiers must be strongly typed (Scala 2, `tagging`)
 - [`type-strongly-typed-ids-scala-3`](rules/type-strongly-typed-ids-scala-3.md) - all entity identifiers must be strongly typed (Scala 3, `neotype`)
 
 ### Domain Modeling (MEDIUM)
-- [`dom-prove-properties`](rules/dom-prove-properties.md) - prove domain properties (e.g. structural projection) at compile time via typeclasses
+- [`dom-prove-inductive-properties`](rules/dom-prove-inductive-properties.md) - when a domain property holds inductively over a type's fields (e.g. structural projection), encode it as a derived typeclass for a compile-time proof
 - [`dom-sized-collections`](rules/dom-sized-collections.md) - use sized collections when sizes of two or more collections are related by a compile-time constraint (Scala 2: `typequux`; Scala 3: `tightbound`)
 
 ### Patterns (MEDIUM)
-- [`patterns-chimney`](rules/patterns-chimney.md) - layer separation and chimney-based conversions
+- [`patterns-chimney`](rules/patterns-chimney.md) - never share case classes across application layers; use Chimney for boilerplate-free conversions between per-layer models
 - [`patterns-cats`](rules/patterns-cats.md) - Cats type class methods over hand-rolled equivalents
 
 ## How to Use

@@ -1,7 +1,7 @@
 {
   "name": "scala-discipline",
   "description": "Scala best practices and coding guidelines — automatically applied when writing, reviewing, or refactoring Scala 2 or Scala 3 code, covering type safety, API design, domain modeling, and functional patterns",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Daniel Slapman"
   }

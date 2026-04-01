@@ -1,12 +1,24 @@
-# dom-prove-properties
+# dom-prove-inductive-properties
 
-> Prove domain properties — such as structural projection — at compile time using typeclasses
+> Prove inductively expressible domain properties — such as structural projection — at compile time using typeclass derivation
 
 ## Why It Matters
 
 Domain invariants like "every field in this DTO exists in the domain model with the same type" are often left implicit — verified only when a conversion fails at runtime or caught by a diligent code reviewer. Encoding such constraints as typeclass evidence turns them into compiler-checked proofs: violations are compile errors, the invariant is self-documenting at every call site, and there is zero runtime cost.
 
 The technique is general: define a typeclass that witnesses the property, derive instances via the generic representation of your types, and use the typeclass as an implicit/given constraint wherever the property must hold.
+
+## When to Apply
+
+This technique works only for properties that can be expressed **inductively over a type's fields**: the property holds for the whole product if and only if it holds for each field independently. The generic derivation (shapeless `HList` / Mirror `Tuple`) encodes exactly this inductive structure.
+
+**Fits this approach:**
+- "Every field in `P` exists in `S` with the same name and type" (structural projection)
+
+**Does NOT fit — use a different approach:**
+- Cross-field constraints: `start < end`, `price > 0 when currency != FREE`
+- Properties that depend on the *relationship between* fields rather than each field in isolation
+- Collection size relationships between fields (see `dom-sized-collections` instead)
 
 ## Example: Structural Projection with `PropSubset`
 
