@@ -6,9 +6,7 @@
 
 Cats provides a rich, lawful vocabulary for effectful and functional programming in Scala. Manually re-implementing traversals, error handling, or effect sequencing obscures intent, introduces subtle bugs, and misses free optimisations. Using the canonical Cats methods communicates intent precisely — `traverse` over a manual fold-into-applicative, `handleErrorWith` over a nested `flatMap`/recover, `*>` over `map(_ => ())` — and keeps code consistent across the codebase. The glossary below is a quick-reference cheat sheet organised by type class.
 
-## Imports
-
-Always use `import cats.syntax.all._`. Never use `import cats.implicits._` — it is a legacy alias and its use should be avoided in all new and existing code.
+> **Import rule:** Always use `import cats.syntax.all._`. Never use `import cats.implicits._` — it is a legacy alias and must be avoided in all new and existing code.
 
 ## Examples
 

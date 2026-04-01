@@ -28,6 +28,11 @@ val bad = dtf"dd/MM/yyyy HH:mm:ii"
 // error: Unknown pattern letter: i
 ```
 
+## When to use `literally` vs `refined`/`iron`
+
+- Use `literally` when the type is opaque and the constraint cannot be expressed as a predicate — e.g. a `DateTimeFormatter`, a compiled `Regex`, a validated `Uri`.
+- Use `refined` (Scala 2) or `iron` (Scala 3) when the constraint *is* part of the type signature and must be visible to callers — e.g. `Int Refined Positive` or `String :| NonEmpty`. Refinement types carry the constraint at every use site; `literally` only validates at the literal call site and returns the plain base type.
+
 ## Quick Start
 
 ```sbt
