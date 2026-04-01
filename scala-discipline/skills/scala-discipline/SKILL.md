@@ -26,7 +26,7 @@ Reference these guidelines when:
 ### API Design (HIGH)
 - [`api-refinement-scala-2`](rules/api-refinement-scala-2.md) - refinement types for constrained values (Scala 2, `refined`)
 - [`api-refinement-scala-3`](rules/api-refinement-scala-3.md) - refinement types for constrained values (Scala 3, `iron`)
-- [`api-enumerations-scala-2`](rules/api-enumerations-scala-2.md) - use `enumeratum` instead of `scala.Enumeration` (Scala 2)
+- [`api-enumerations`](rules/api-enumerations.md) - avoid `scala.Enumeration`; use `enumeratum` (Scala 2) or native `enum` (Scala 3)
 
 ### Type Safety (HIGH)
 - [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
