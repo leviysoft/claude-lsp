@@ -21,11 +21,15 @@ Reference these guidelines when:
 
 ## Quick Reference
 
+### API Design (HIGH)
+- [`api-refinement-scala-2`](rules/api-refinement-scala-2.md) - refinement types for constrained values (Scala 2, `refined`)
+- [`api-refinement-scala-3`](rules/api-refinement-scala-3.md) - refinement types for constrained values (Scala 3, `iron`)
+
 ### Type Safety (HIGH)
 - [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
 - [`type-literally`](rules/type-literally.md) - compile-time validated string literals for constrained types
 
-### Patterns (HIGH)
+### Patterns (MEDIUM)
 - [`patterns-chimney`](rules/patterns-chimney.md) - layer separation and chimney-based conversions
 - [`patterns-cats`](rules/patterns-cats.md) - Cats type class methods over hand-rolled equivalents
 
