@@ -1,5 +1,5 @@
 ---
-name: scala-guidelines
+name: scala-discipline
 description: >
   This skill should be used when the user asks to "write Scala code", "review Scala code",
   "refactor Scala code", "implement a Scala API", "design a Scala domain model", or mentions
