@@ -73,3 +73,11 @@ Install [FsAutoComplete](https://github.com/ionide/FsAutoComplete):
 Don't forget to add `export ENABLE_LSP_TOOL=1`
 
     /plugin install fsharp-lsp@leviysoft
+
+## Scala Plugins
+
+### scala-sanitar
+
+Guidance for resolving common Scala compilation errors — non-exhaustive matches, discarded values (including Futures), and references to uninitialized values.
+
+    /plugin install scala-sanitar@leviysoft
