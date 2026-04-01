@@ -6,6 +6,10 @@
 
 Cats provides a rich, lawful vocabulary for effectful and functional programming in Scala. Manually re-implementing traversals, error handling, or effect sequencing obscures intent, introduces subtle bugs, and misses free optimisations. Using the canonical Cats methods communicates intent precisely — `traverse` over a manual fold-into-applicative, `handleErrorWith` over a nested `flatMap`/recover, `*>` over `map(_ => ())` — and keeps code consistent across the codebase. The glossary below is a quick-reference cheat sheet organised by type class.
 
+## Imports
+
+Always use `import cats.syntax.all._`. Never use `import cats.implicits._` — it is a legacy alias and its use should be avoided in all new and existing code.
+
 ## Examples
 
 ### Bad
@@ -30,6 +34,11 @@ findUser(id).flatMap {
   case None       => IO.pure(None)
   case Some(user) => findRole(user)
 }
+
+// Nested map instead of monad transformer
+fa.map(_.map(f))          // F[Option[A]] — use OptionT
+fa.map(_.map(f))          // F[Either[E, A]] — use EitherT
+fa.flatMap(opt => IO(opt.map(f)))
 ```
 
 ### Good
@@ -46,6 +55,11 @@ fa.whenA(condition)     // Applicative#whenA
   user <- OptionT(findUser(id))
   role <- OptionT(findRole(user))
 } yield role).value
+
+// Use monad transformers instead of nested map/flatMap
+OptionT(fa).map(f).value            // instead of fa.map(_.map(f))
+EitherT(fa).map(f).value            // instead of fa.map(_.map(f))
+OptionT(fa).flatMap(a => OptionT(g(a))).value  // instead of fa.flatMap { case None => ...; case Some(a) => g(a) }
 ```
 
 ## Reference: Cats Method Glossary
