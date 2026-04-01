@@ -43,12 +43,17 @@
     {
       "name": "scala-wartremover",
       "source": "./scala-wartremover",
-      "description": "WartRemover skill for Scala projects"
+      "description": "Scala static analysis and antipattern elimination via WartRemover and wartremover-contrib"
     },
     {
       "name": "scala-discipline",
       "source": "./scala-discipline",
-      "description": "Scala best practices and coding guidelines — automatically applied when writing, reviewing, or refactoring Scala 2 or Scala 3 code, covering type safety, API design, domain modeling, and functional patterns"
+      "description": "Scala best practices for type safety, API design, domain modeling, and functional patterns (Scala 2 & 3)"
+    },
+    {
+      "name": "scala-sanitar",
+      "source": "./scala-sanitar",
+      "description": "Guidance for resolving common Scala compilation errors — non-exhaustive matches, discarded values, and uninitialized references"
     }
   ]
 }
