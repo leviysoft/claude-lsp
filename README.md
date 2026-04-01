@@ -8,7 +8,10 @@
 
 ### prefer-ast-grep
 
-Redirects structural code searches (functions, classes, types) from the `Grep` tool to ast-grep. Requires `ast-grep@ast-grep-marketplace`.
+Redirects structural code searches (functions, classes, types) from the `Grep` tool to ast-grep. Requires both the ast-grep tool and the ast-grep skill:
+
+    /plugin marketplace add ast-grep/agent-skill
+    /plugin install ast-grep
 
     /plugin install prefer-ast-grep@leviysoft
 
