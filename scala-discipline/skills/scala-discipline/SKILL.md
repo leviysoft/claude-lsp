@@ -37,6 +37,7 @@ Reference these guidelines when:
 
 ### Domain Modeling (MEDIUM)
 - [`dom-prove-properties`](rules/dom-prove-properties.md) - prove domain properties (e.g. structural projection) at compile time via typeclasses
+- [`dom-sized-collections`](rules/dom-sized-collections.md) - use sized collections when sizes of two or more collections are related by a compile-time constraint (Scala 2: `typequux`; Scala 3: `tightbound`)
 
 ### Patterns (MEDIUM)
 - [`patterns-chimney`](rules/patterns-chimney.md) - layer separation and chimney-based conversions
