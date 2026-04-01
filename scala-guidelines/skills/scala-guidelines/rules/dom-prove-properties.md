@@ -85,20 +85,22 @@ PropSubset[Projection, Source]          // OK
 // PropSubset[Projection2, Source]      // Compile error: Projection2 is not a valid projection of Source
 ```
 
-### Scala 3 (shapeless3 / Mirror)
+### Scala 3 (Mirror)
 
-#### Setup
-
-```scala
-libraryDependencies += "org.typelevel" %% "shapeless3-deriving" % "3.4.3"
-```
+No extra dependencies — uses only `scala.deriving.Mirror` from the standard library.
 
 #### Implementation
 
 ```scala
 import scala.annotation.implicitNotFound
-import shapeless3.deriving.*
 import scala.deriving.Mirror
+import scala.util.NotGiven
+
+// Looks up the type of label TL in a Tuple of (label, type) pairs
+type GetByLabel[TL <: String, TPL <: Tuple] =
+  TPL match
+    case (TL, t) *: _ => t
+    case _ *: (t *: ts) => GetByLabel[TL, t *: ts]
 
 /*
   Witnesses, that all fields of `Projection` exists in `Source` with the same types and names
@@ -109,39 +111,36 @@ trait PropSubset[Projection, Source]
 object PropSubset:
   private val anySubset = new PropSubset[Any, Any] {}
 
-  def apply[P, S](using ps: PropSubset[P, S]): PropSubset[P, S] = ps
+  given [T]: PropSubset[T, T] = anySubset.asInstanceOf[PropSubset[T, T]]
 
-  given identityPs[T]: PropSubset[T, T] = anySubset.asInstanceOf[PropSubset[T, T]]
+  given [P, S](using NotGiven[P =:= S], PropSubset[P, S]): PropSubset[Option[P], Option[S]] =
+    anySubset.asInstanceOf[PropSubset[Option[P], Option[S]]]
 
-  given optionSubset[P, S](using notEq: P =:!= S, ps: PropSubset[P, S]): PropSubset[Option[P], Option[S]] =
-    ps.asInstanceOf[PropSubset[Option[P], Option[S]]]
+  given [T <: Tuple]: PropSubset[EmptyTuple, T] = anySubset.asInstanceOf[PropSubset[EmptyTuple, T]]
 
-  given nilSubset[P, S](using
-    kp: K0.ProductGeneric[P] { type MirroredElemTypes <: EmptyTuple },
-    ks: K0.ProductGeneric[S]
+  given [PHL <: String, PHT, PT <: Tuple, S <: Tuple](using
+    PropSubset[PHT, GetByLabel[PHL, S]],
+    PropSubset[PT, S]
+  ): PropSubset[(PHL, PHT) *: PT, S] = anySubset.asInstanceOf[PropSubset[(PHL, PHT) *: PT, S]]
+
+  given [P <: Product, S <: Product](using
+    mp: Mirror.ProductOf[P],
+    ms: Mirror.ProductOf[S],
+    PropSubset[
+      Tuple.Zip[mp.MirroredElemLabels, mp.MirroredElemTypes],
+      Tuple.Zip[ms.MirroredElemLabels, ms.MirroredElemTypes]
+    ]
   ): PropSubset[P, S] = anySubset.asInstanceOf[PropSubset[P, S]]
-
-  given macroSubset[P, S](using notEq: P =:!= S, pm: Mirror.ProductOf[P], ps: Mirror.ProductOf[S]): PropSubset[P, S] =
-    tupleSubset[pm.MirroredElemTypes, ps.MirroredElemTypes].asInstanceOf[PropSubset[P, S]]
-
-  given tupleSubset[PT <: NonEmptyTuple, ST <: NonEmptyTuple](using Head[PT] =:= Head[ST], PropSubset[Tail[PT], Tail[ST]]): PropSubset[PT, ST] =
-    anySubset.asInstanceOf[PropSubset[PT, ST]]
-
-type Head[T] = T match
-  case h *: t => h
-type Tail[T] = T match
-  case h *: t => t
 ```
 
 #### Usage
 
 ```scala
-case class Employee(id: Int, name: String, department: String)
-case class EmpProj(id: Int, name: String)
+case class Employee(name: String, age: Int, active: Boolean)
+case class EmpProj(name: String, age: Int)
 
-// Use as a given constraint on a function
 def okp[P, S](using PropSubset[P, S]) = ()
 
-okp[EmpProj, Employee]   // OK
+okp[EmpProj, Employee]    // OK
 // okp[Employee, EmpProj] // Compile error: Employee is not a valid projection of EmpProj
 ```
