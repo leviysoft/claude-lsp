@@ -4,7 +4,9 @@
 
 ## Why It Matters
 
-Plain `Int`, `String`, or `Double` fields do not communicate their valid ranges — readers must hunt for validation logic scattered across the codebase, and invalid values can slip through whenever that validation is bypassed. Refinement types make the constraints part of the type itself: the compiler rejects bad literals, and callers must explicitly handle invalid runtime input. This removes defensive runtime checks from business logic and turns invalid state into a compile error.
+Unrefined types do not communicate their valid ranges or invariants — readers must hunt for validation logic scattered across the codebase, and invalid values can slip through whenever that validation is bypassed. Refinement types make the constraints part of the type itself: the compiler rejects bad literals, and callers must explicitly handle invalid runtime input. This removes defensive runtime checks from business logic and turns invalid state into a compile error.
+
+> **Encode only what the specification requires.** Only add constraints that are explicitly stated in the user story, domain model, or program specification. Do not invent constraints based on current implementation convenience or speculative assumptions — over-constraining makes APIs unnecessarily restrictive and couples types to assumptions that may not hold universally.
 
 ## Setup
 
