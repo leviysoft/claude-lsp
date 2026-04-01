@@ -25,6 +25,10 @@ Reference these guidelines when:
 - [`type-option-semantics`](rules/type-option-semantics.md) - `Option[T]` usage rules
 - [`type-literally`](rules/type-literally.md) - compile-time validated string literals for constrained types
 
+### Patterns (HIGH)
+- [`patterns-chimney`](rules/patterns-chimney.md) - layer separation and chimney-based conversions
+- [`patterns-cats`](rules/patterns-cats.md) - Cats type class methods over hand-rolled equivalents
+
 ## How to Use
 
 This skill provides rule identifiers for quick reference. When generating or reviewing Rust code:
