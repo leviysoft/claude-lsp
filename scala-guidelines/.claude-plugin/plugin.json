@@ -1,6 +1,6 @@
 {
   "name": "scala-guidelines",
-  "description": "Scala coding guidelines skill for Claude",
+  "description": "Scala best practices and coding guidelines — automatically applied when writing, reviewing, or refactoring Scala 2 or Scala 3 code, covering type safety, API design, domain modeling, and functional patterns",
   "version": "0.1.0",
   "author": {
     "name": "Daniel Slapman"
