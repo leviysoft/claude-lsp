@@ -46,9 +46,9 @@
       "description": "WartRemover skill for Scala projects"
     },
     {
-      "name": "scala-guidelines",
-      "source": "./scala-guidelines",
-      "description": "Scala coding guidelines skill for Claude"
+      "name": "scala-discipline",
+      "source": "./scala-discipline",
+      "description": "Scala best practices and coding guidelines — automatically applied when writing, reviewing, or refactoring Scala 2 or Scala 3 code, covering type safety, API design, domain modeling, and functional patterns"
     }
   ]
 }
