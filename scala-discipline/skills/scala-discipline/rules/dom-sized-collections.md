@@ -89,7 +89,7 @@ The `implicit ev: C1 =:= R2` constraint encodes that the column count of `lhs` m
 libraryDependencies += "io.github.leviysoft" %% "tightbound" % "0.1.0"
 ```
 
-`tightbound` provides `Vector[Size <: Int, A]` and `Matrix[Rows <: Int, Cols <: Int, A]` with built-in size-safe operations. No manual proof is needed — the library's API encodes the constraints directly in method signatures.
+`tightbound` provides `Vector[Size <: Int, A]` and `Matrix[Rows <: Int, Cols <: Int, A]`. Size constraints are encoded directly in type parameters — the same shared-parameter pattern as Scala 2, but without implicit evidence.
 
 ### Examples
 
@@ -100,41 +100,27 @@ def dot(xs: List[Int], ys: List[Int]): Int =
   xs.zip(ys).map(_ * _).sum
 ```
 
-#### Good — dot product (built-in)
+#### Good — dot product
 
 ```scala
 import tightbound.*
 
-val v1: Vector[3, Int] = Vector.of(1, 2, 3)
-val v2: Vector[3, Int] = Vector.of(4, 5, 6)
-
-v1 dot v2   // 32 — size equality enforced by the shared type parameter
-
-// v1 dot Vector.of(1, 2)
-// compile error: Found Vector[(2 : Int), Int], Required Vector[(3 : Int), Int]
+def dot[N <: Int](xs: Vector[N, Int], ys: Vector[N, Int]): Int =
+  Vector.map2(xs, ys, _ * _).sum
 ```
 
-#### Good — matrix multiplication (built-in)
+The shared type parameter `N` ensures both vectors have the same length. Passing mismatched lengths is a compile error.
+
+#### Good — matrix multiplication
 
 ```scala
 import tightbound.*
 
-val m1: Matrix[2, 3, Int] = Matrix {
-  Vector.of(
-    Vector.of(1, 2, 3),
-    Vector.of(4, 5, 6),
-  )
-}
-val m2: Matrix[3, 1, Int] = Matrix {
-  Vector.of(
-    Vector.of(7),
-    Vector.of(8),
-    Vector.of(9),
-  )
-}
-
-m1 x m2   // Matrix[2, 1, Int] — column/row compatibility verified at compile time
-
-// m2 x m1
-// compile error: column count of m2 (1) does not match row count of m1 (2)
+def mul[R <: Int, C <: Int, C2 <: Int](
+  lhs: Matrix[R, C, Int],
+  rhs: Matrix[C, C2, Int]
+): Matrix[R, C2, Int] =
+  rhs.transpose.mapRows(lhs.linearMap).transpose
 ```
+
+The shared type parameter `C` encodes that the column count of `lhs` must equal the row count of `rhs`. Mismatched dimensions are a compile error.
