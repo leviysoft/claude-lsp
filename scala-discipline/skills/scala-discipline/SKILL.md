@@ -52,6 +52,10 @@ This skill provides rule identifiers for quick reference. When generating or rev
 3. **Prioritize** CRITICAL > HIGH > MEDIUM > LOW
 4. **Read rule files** in `rules/` for detailed examples
 
+### Code Review Constraints
+
+When reviewing or assessing code, **always include the rule identifier** for each recommendation. Only raise discipline-related recommendations that map to a specific rule. Bug reports and correctness findings are always in scope regardless of rule coverage.
+
 ### Rule Application by Task
 
 | Task | Primary Categories |
