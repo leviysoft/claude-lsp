@@ -10,7 +10,7 @@ Unrefined types do not communicate their valid ranges or invariants — readers 
 
 ## Migration note
 
-If the codebase already uses `refined` (e.g. migrated from Scala 2), **do not flag existing `refined` usage as a violation**. `refined` serves the same purpose as `iron` and is a valid choice when it is already established. Only prefer `iron` for *new* code or when `refined` is being introduced for the first time.
+If the codebase already uses `refined` (e.g. migrated from Scala 2), **do not flag existing `refined` usage as a violation** and **do not introduce `iron`**. Continue using `refined` for any new code in that codebase to keep the dependency set consistent. Only use `iron` when no refinement library is established yet, or when the user explicitly asks to migrate away from `refined`.
 
 ## Setup
 

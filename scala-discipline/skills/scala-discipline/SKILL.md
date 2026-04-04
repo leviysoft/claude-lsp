@@ -25,7 +25,7 @@ Reference these guidelines when:
 
 ### API Design (HIGH)
 - [`api-refinement-scala-2`](rules/api-refinement-scala-2.md) - when a field has known value constraints, encode them in the type with `refined` (Scala 2)
-- [`api-refinement-scala-3`](rules/api-refinement-scala-3.md) - when a field has known value constraints, encode them in the type with `iron` (Scala 3)
+- [`api-refinement-scala-3`](rules/api-refinement-scala-3.md) - when a field has known value constraints, encode them in the type with `iron` (Scala 3); use `refined` instead if the codebase already depends on it
 - [`api-enumerations`](rules/api-enumerations.md) - avoid `scala.Enumeration`; use `enumeratum` (Scala 2) or native `enum` (Scala 3)
 
 ### Type Safety (HIGH)
