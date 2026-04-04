@@ -8,6 +8,10 @@ Unrefined types do not communicate their valid ranges or invariants — readers 
 
 > **Encode only what the specification requires.** Only add constraints that are explicitly stated in the user story, domain model, or program specification. Do not invent constraints based on current implementation convenience or speculative assumptions — over-constraining makes APIs unnecessarily restrictive and couples types to assumptions that may not hold universally.
 
+## Migration note
+
+If the codebase already uses `refined` (e.g. migrated from Scala 2), **do not flag existing `refined` usage as a violation**. `refined` serves the same purpose as `iron` and is a valid choice when it is already established. Only prefer `iron` for *new* code or when `refined` is being introduced for the first time.
+
 ## Setup
 
 ```scala
@@ -52,7 +56,6 @@ log(-1.0)  // Compile-time error: Should be strictly positive
 
 // Runtime validation
 val runtimeValue: Double = ???
-log(runtimeValue.refineUnsafe)                 // explicit unsafe refinement
 runtimeValue.refineEither[Positive].map(log)   // monadic style
 ```
 

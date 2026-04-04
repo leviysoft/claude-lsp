@@ -6,6 +6,10 @@
 
 Scala's built-in `Enumeration` has poor type safety — pattern matching on it is not exhaustive, and its values are all typed as `Value` rather than distinct types, making codec integration cumbersome. Both `enumeratum` (Scala 2) and native `enum` (Scala 3) provide proper types per member, exhaustiveness checking, and built-in value enumeration.
 
+## Migration note
+
+Do not flag `enumeratum` usage in a Scala 3 project as a violation if it is already widely used in that codebase (e.g. after a Scala 2 → 3 migration). In that context, `enumeratum` is an acceptable legacy choice. Only prefer native `enum` for *new* enumerations or when `enumeratum` would be introduced for the first time.
+
 ## Examples
 
 ### Bad
