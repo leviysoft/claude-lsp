@@ -2,11 +2,15 @@
 
 > All entity identifiers should be strongly typed.
 
+## Scope
+
+This rule applies **only to identifier fields** — fields that uniquely identify an entity or reference another entity (typically named `id`, `userId`, `orderId`, etc.). It does **not** apply to other primitive fields such as names, descriptions, flags, or counts. Wrapping non-ID primitives in newtypes (@@-tagged types, etc.) is outside the scope of this rule.
+
 ## Why It Matters
 
 Using plain primitive types (e.g., `String`) for identifiers allows accidentally passing a `SID[User]` where a `SID[Role]` is expected — a bug the compiler cannot catch. Strongly typed IDs make such mixups a compile-time error, eliminating an entire class of subtle runtime defects. They also serve as documentation, making it immediately clear from the type what entity an ID refers to.
 
-## Generic typed id implemetation
+## Generic typed id implementation
 
 First of all, ensure that there is no implementation in the project already!
 
