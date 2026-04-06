@@ -29,6 +29,14 @@ Blocks use of Python for JSON processing in Bash commands, enforcing `jq` instea
 
 Requires `jq` to be installed.
 
+### maven-artifact-lookup
+
+Find the latest version of a Maven artifact, list available versions, or check artifact existence — all from the command line via Coursier.
+
+    /plugin install maven-artifact-lookup@leviysoft
+
+Requires [Coursier](https://get-coursier.io/docs/cli-installation) (`cs`) to be installed.
+
 ## LSP Plugins
 
 ### HOW TO SCALA

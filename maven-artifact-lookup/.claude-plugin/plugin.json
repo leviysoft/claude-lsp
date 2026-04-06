@@ -1,0 +1,8 @@
+{
+  "name": "maven-artifact-lookup",
+  "description": "Maven artifact lookup and version discovery via Coursier CLI — use to find latest versions, list available versions, or check existence of Maven artifacts",
+  "version": "1.0.0",
+  "author": {
+    "name": "Daniel Slapman"
+  }
+}
