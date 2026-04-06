@@ -54,6 +54,11 @@
       "name": "scala-sanitar",
       "source": "./scala-sanitar",
       "description": "Guidance for resolving common Scala compilation errors — non-exhaustive matches, discarded values, and uninitialized references"
+    },
+    {
+      "name": "maven-artifact-lookup",
+      "source": "./maven-artifact-lookup",
+      "description": "Maven artifact lookup and version discovery via Coursier CLI — find latest versions, list available versions, or check existence of Maven artifacts"
     }
   ]
 }
