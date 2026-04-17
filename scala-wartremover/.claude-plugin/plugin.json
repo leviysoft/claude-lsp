@@ -1,7 +1,7 @@
 {
   "name": "scala-wartremover",
   "description": "Scala code quality enforcement via WartRemover and wartremover-contrib — automatically applied when static analysis, linting, or antipattern elimination is needed in sbt projects",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Daniel Slapman"
   }

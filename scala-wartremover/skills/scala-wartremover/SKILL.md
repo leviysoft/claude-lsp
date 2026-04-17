@@ -51,6 +51,8 @@ Add the following configuration to common project settings:
     )
 ```
 
+> **Note on `Wart.Equals`:** Include it for **fresh projects** (bootstrapped during the current session). For **existing codebases**, omit `Wart.Equals` by default — it typically triggers a large volume of changes requiring `cats.Eq` instances or other plumbing, which is better tackled as a separate, scoped effort. The team can opt in later once the other warts are clean.
+
 For Scala 2.13 project the following config piece might be needed:
 ```sbt
     wartremoverDependencies ~= (_.filterNot(_.name == "wartremover-contrib")),
@@ -62,6 +64,21 @@ For Scala 3 project the following config piece might be needed:
     wartremoverDependencies ~= (_.filterNot(_.name == "wartremover-contrib")),
     wartremoverDependencies += "org.wartremover" % "wartremover-contrib_3" % ContribWart.ContribVersion,
 ```
+
+### Integrating with an existing WartRemover setup
+
+Before adding or modifying anything, check whether WartRemover is already present by scanning `project/plugins.sbt`, `build.sbt`, and any `*.sbt` files in the project root or module subdirectories for `sbt-wartremover`, `wartremoverErrors`, `wartremoverWarnings`, or `wartremoverDependencies`.
+
+**If WartRemover is already configured:**
+
+- NEVER remove, comment out, or replace any wart already listed in `wartremoverErrors` or `wartremoverWarnings`.
+- NEVER downgrade plugin versions. If the existing version is below the recommended minimum, upgrade it to the recommended version.
+- Only ADD warts from the recommended set that are not already enabled (in either `Errors` or `Warnings`).
+- Do NOT add `Wart.Equals` unless it is already present, the project was bootstrapped in the current session, or the user explicitly requests it.
+- Preserve the project's existing style: if the project uses `wartremoverErrors` for any wart, add new warts to `wartremoverErrors`; if the project uses only `wartremoverWarnings` with no `wartremoverErrors`, add new warts to `wartremoverWarnings`.
+- Leave `wartremoverDependencies`, `wartremoverExcluded`, and `wartremoverClasspaths` customizations untouched.
+
+**If WartRemover is not present:** follow the Installation and Configuration sections above, applying the fresh-vs-existing judgment for `Wart.Equals` as noted above.
 
 ### Fixing wartremover-issues errors
 
