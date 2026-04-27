@@ -1,0 +1,17 @@
+{
+  "description": "Re-inject CLAUDE.md reminder after compaction",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/post-compact-reinject.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
