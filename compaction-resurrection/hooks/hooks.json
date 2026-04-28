@@ -1,5 +1,4 @@
 {
-  "description": "Re-inject CLAUDE.md reminder after compaction",
   "hooks": {
     "SessionStart": [
       {
