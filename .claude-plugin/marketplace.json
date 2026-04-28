@@ -64,6 +64,11 @@
       "name": "compaction-resurrection",
       "source": "./compaction-resurrection",
       "description": "Reminds Claude to re-read CLAUDE.md after context compaction so global instructions stay in effect"
+    },
+    {
+      "name": "maven-source-fetch",
+      "source": "./maven-source-fetch",
+      "description": "Maven source JAR fetching via Coursier CLI — download and locate source JARs for Maven dependencies"
     }
   ]
 }

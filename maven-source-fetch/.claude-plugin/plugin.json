@@ -1,0 +1,8 @@
+{
+  "name": "maven-source-fetch",
+  "description": "Maven source JAR fetching via Coursier CLI — download and locate source JARs for Maven dependencies",
+  "version": "0.1.0",
+  "author": {
+    "name": "Daniel Slapman"
+  }
+}
